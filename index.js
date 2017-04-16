@@ -4,12 +4,12 @@ var S = require('pull-stream/pull')
 S.drain = require('pull-stream/sinks/drain')
 S.through = require('pull-stream/throughs/through')
 
-function RenderLoop (root, view) {
-    if (!view) return function (view) {
-        return RenderLoop(root, view)
+function RenderLoop (root, view, onEnd) {
+    if (!view) return function (view, onEnd) {
+        return RenderLoop(root, view, onEnd)
     }
 
-    var p = Pushable()
+    var p = Pushable(onEnd)
     var tree
 
     return {
@@ -21,9 +21,8 @@ function RenderLoop (root, view) {
                 return root.appendChild(tree)
             }
             update(tree, newTree)
-        }, function onEnd (err) {
-            if (err) return p.end(err)
-            p.end()
+        }, function _onEnd (err) {
+            p.end(err)
         })
     }
 }

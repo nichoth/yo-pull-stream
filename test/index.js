@@ -39,3 +39,27 @@ test('yo render loop', function (t) {
 
 })
 
+test('error', function (t) {
+    t.plan(1)
+    var _err = new Error('test')
+    var viewStream = ViewStream(root, myView, function onEnd (err) {
+        t.equal(err, _err)
+    })
+
+    S(
+        viewStream,
+        S.map(function (ev) {
+            throw(_err)
+        }),
+        viewStream
+    )
+
+    viewStream.source.push({ count: 0 })
+
+    function myView (state, push) {
+        return html`<div>
+            test
+        </div>`
+    }
+})
+
