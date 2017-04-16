@@ -1,5 +1,6 @@
 var update = require('yo-yo').update
-var Notify = require('pull-notify')
+// var Notify = require('pull-notify')
+var Pushable = require('pull-pushable')
 var S = require('pull-stream/pull')
 S.drain = require('pull-stream/sinks/drain')
 S.through = require('pull-stream/throughs/through')
@@ -9,27 +10,21 @@ function RenderLoop (root, view) {
         return RenderLoop(root, view)
     }
 
-    var source = Notify()
-    var _source = function () {
-        return source.listen.apply(source, arguments)
-    }
-    _source.end = source.end
-    _source.push = source
+    var p = Pushable()
     var tree
 
     return {
-        source: source.listen(),
-        listen: source.listen,
+        source: p,
         sink: S.drain(function onEvent (state) {
-            var newTree = view(state, source)
+            var newTree = view(state, p.push)
             if (!tree) {
                 tree = newTree
                 return root.appendChild(tree)
             }
             update(tree, newTree)
         }, function onEnd (err) {
-            if (err) return source.end(err)
-            source.end()
+            if (err) return p.end(err)
+            p.end()
         })
     }
 }
