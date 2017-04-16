@@ -1,7 +1,7 @@
 {
   "name": "yo-pull-stream",
   "description": "Turn your view into a duplex stream",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "index.js",
   "directories": {
     "example": "example",
