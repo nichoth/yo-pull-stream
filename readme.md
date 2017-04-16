@@ -18,7 +18,10 @@ var root = document.createElement('div')
 document.body.appendChild(root)
 
 // viewStream is a duplex stream
-var viewStream = ViewStream(root, myView)
+var viewStream = ViewStream(root, myView, function onEnd (err) {
+    if (err) return console.log('error', err)
+    console.log("it's over")
+})
 
 S(
     viewStream,
@@ -29,7 +32,7 @@ S(
     viewStream
 )
 
-// initial event so our view renders
+// push an initial event so our view renders
 viewStream.source.push({ count: 0 })
 
 function myView (state, push) {
