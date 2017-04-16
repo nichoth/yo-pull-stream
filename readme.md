@@ -20,9 +20,6 @@ document.body.appendChild(root)
 // viewStream is a duplex stream
 var viewStream = ViewStream(root, myView)
 
-// you can have multiple subsribers
-var anotherSourceStream = viewStream.listen()  
-
 S(
     viewStream,
     scan(function (state, ev) {

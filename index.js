@@ -1,5 +1,4 @@
 var update = require('yo-yo').update
-// var Notify = require('pull-notify')
 var Pushable = require('pull-pushable')
 var S = require('pull-stream/pull')
 S.drain = require('pull-stream/sinks/drain')
