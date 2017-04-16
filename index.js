@@ -3,6 +3,7 @@ var Notify = require('pull-notify')
 var Pushable = require('pull-pushable')
 var S = require('pull-stream/pull')
 S.drain = require('pull-stream/sinks/drain')
+S.through = require('pull-stream/throughs/through')
 
 function RenderLoop (root, view) {
     if (!view) return function (view) {
@@ -11,11 +12,14 @@ function RenderLoop (root, view) {
 
     var p = Pushable()
     var source = Notify()
+    var _source = S( p, S.through(source) )
+    _source.end = p.end
+    _source.push = p.push
     S( p, S.drain(source, source.end) )
     var tree
 
     return {
-        source: p,
+        source:_source,
         listen: source.listen,
         sink: S.drain(function onEvent (state) {
             var newTree = view(state, p.push)
