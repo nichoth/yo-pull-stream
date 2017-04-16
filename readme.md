@@ -44,3 +44,11 @@ function myView (state, push) {
 }
 ```
 
+You can pass in a render function. This should work with any function like `morphdom`:
+
+```js
+var ViewStream = require('yo-pull-stream/render-loop')(myRenderFunction)
+var viewStream = ViewStream(root, myView, function onEnd (err) {
+})
+```
+
