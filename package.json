@@ -12,12 +12,13 @@
     "postversion": "git push && git push --tags",
     "dev": "budo --open example/index.js",
     "lint": "eslint .",
-    "deps": "dependency-check package.json && dependency-check package.json --unused --entry test/*.js -i dependency-check -i eslint -i eslint-config-minlint -i tap-spec -i tape-run -i browserify",
+    "deps": "dependency-check package.json && dependency-check package.json --unused --entry test/*.js -i dependency-check -i eslint -i eslint-config-minlint -i tap-spec -i tape-run -i browserify -i budo",
     "test": "browserify test/index.js | tape-run | tap-spec"
   },
   "dependencies": {
     "pull-notify": "^0.1.1",
     "pull-pushable": "^2.0.1",
+    "pull-stream": "^3.5.0",
     "yo-yo": "^1.4.0"
   },
   "devDependencies": {
