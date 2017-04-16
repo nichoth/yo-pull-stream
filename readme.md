@@ -4,7 +4,7 @@ Turn your view into a duplex stream
 
 ## install
 
-    $ npm intall yo-pull-stream
+    $ npm install yo-pull-stream
 
 ## example
 
