@@ -1,10 +1,12 @@
 # yo pull stream
 
-Turn your view into a duplex stream
+Turn your view into a duplex stream. This uses [yo-yo](https://github.com/maxogden/yo-yo/) to render your view, and gives you a duplex stream interface for emitting events and subscribing to changes.
+
 
 ## install
 
     $ npm install yo-pull-stream
+
 
 ## example
 
